@@ -39,7 +39,17 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 	public double getSALARIO_FIJO() {
 		return SALARIO_FIJO;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "El tipo de empleado es: Por comisión\n"
+				+ super.toString() 
+				+ String.format(
+				"\nEl salario fijo del empleado es: %d\n"
+				+ "Los clientes captados son: %d\n"
+				+ "La comisión por cleinte es: %d\n",
+				SALARIO_FIJO, clientesCaptados, comisionPorCliente);
+	}
 
 	@Override
 	public double calcularSalario() {
@@ -68,11 +78,12 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 		return calcularSalario();
 	}
 	
-	public void asignarNumeroClientes(int numeroCLientes) {
+	public boolean asignarNumeroClientes(int numeroCLientes) {
 		if(numeroCLientes > 0) {
 			clientesCaptados = numeroCLientes;
+			return true;
 		} else {
-			System.out.println("el número de clientes no puede ser negativo");
+			return false;
 		}
 	}
 

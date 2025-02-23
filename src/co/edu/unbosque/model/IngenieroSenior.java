@@ -21,11 +21,22 @@ public class IngenieroSenior extends EmpleadoSalarioFijo implements SalarioBonif
 		this.numeroVentas = numeroVentas;
 	}
 	
-	public void asignarNumeroVentas(int numeroVentas) {
+	
+	
+	@Override
+	public String toString() {
+		return "El cargo es: Ingeniero Senior\n"
+				+ super.toString()
+				+ "\nEl número de ventas cerradas es: " + numeroVentas;
+	}
+
+
+	public boolean asignarNumeroVentas(int numeroVentas) {
 		if(numeroVentas > 0) {
 			this.numeroVentas = numeroVentas;
+			return true;
 		}else {
-			System.out.println("EL número de ventas ni puede ser negativo");
+			return false;
 		}
 	}
 

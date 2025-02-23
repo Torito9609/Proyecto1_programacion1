@@ -10,6 +10,21 @@ public class IngenieroJunior extends EmpleadoSalarioFijo implements SalarioBonif
 		super(cedula, nombre, apellidos, telefono, correoInstitucional, direccionDomiciliaria, anioIngreso, genero, fechaNacimiento);
 		this.nivel = nivel;	
 	}
+	
+	public NivelIngenieroJunior getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(NivelIngenieroJunior nivel) {
+		this.nivel = nivel;
+	}
+	
+	@Override
+	public String toString() {
+		return "El cargo es: Ingeniero Junior\n" 
+				+ super.toString()
+				+ "\nEl nivel del ingeniero es: " + nivel;
+	}
 
 	@Override
 	public double calcularBonificacion() {
@@ -27,6 +42,18 @@ public class IngenieroJunior extends EmpleadoSalarioFijo implements SalarioBonif
 	
 	public double calcularSalarioTotal() {
 		return calcularSalario() + calcularBonificacion();
+	}
+
+	public boolean ascenderIngenieroJunior() {
+		if(nivel == NivelIngenieroJunior.NIVEL_1) {
+			nivel = NivelIngenieroJunior.NIVEL_2;
+			return true;
+		}else if(nivel == NivelIngenieroJunior.NIVEL_2) {
+			nivel = NivelIngenieroJunior.NIVEL_3;
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }

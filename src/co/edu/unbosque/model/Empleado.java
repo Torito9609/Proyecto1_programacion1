@@ -98,6 +98,24 @@ public abstract class Empleado {
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format(
+				"El nombre del empleado es: %s\n"
+				+ "Los apellidos del empleado son: %s\n"
+				+ "La cédula del empleado es: %s\n"
+				+ "El teléfono del empleado es: %s\n"
+				+ "El correo del empleado es: %s\n"
+				+ "La dirección del empleado es: %s\n"
+				+ "El anio de ingreso del empleado fué: %d\n"
+				+ "El género del empleado es: %s\n"
+				+ "La edad del empleado es: %d\n"
+				+ "La antigüedad del empleado es: %d\n",
+				nombre, apellidos, cedula, telefono, correoInstitucional,
+				direccionDomiciliaria, anioIngreso, genero, calcularEdad(),
+				calcularAntiguedad());
+	}
 
 	public int calcularAntiguedad() {
 		int anioActual = java.time.Year.now().getValue();

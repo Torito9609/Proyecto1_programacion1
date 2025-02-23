@@ -8,6 +8,11 @@ public class Tecnico extends EmpleadoSalarioFijo implements SalarioBonificable{
 			String direccionDomiciliaria, int anioIngreso, String genero, LocalDate fechaNacimiento) {
 		super(cedula, nombre, apellidos, telefono, correoInstitucional, direccionDomiciliaria, anioIngreso, genero, fechaNacimiento);
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 
 	@Override
 	public double calcularBonificacion() {
@@ -15,7 +20,7 @@ public class Tecnico extends EmpleadoSalarioFijo implements SalarioBonificable{
 		if(edad > 40) {
 			return 0.05;
 		}else {
-		return 0.02;
+			return 0.02;
 		}
 	}
 

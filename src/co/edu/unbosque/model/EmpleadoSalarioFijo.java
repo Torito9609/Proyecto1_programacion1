@@ -14,6 +14,13 @@ public class EmpleadoSalarioFijo extends Empleado implements SalarioCalculable{
 	public double getSALARIO_FIJO() {
 		return SALARIO_FIJO;
 	}
+	
+	@Override
+	public String toString() {
+		return "El tipo de empleado es: Empleado con salario fijo\n"
+				+ super.toString()
+				+ "\nEl salario fijo es: " + SALARIO_FIJO + "\n";
+	}
 
 	@Override
 	public double calcularSalario() {
