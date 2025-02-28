@@ -28,5 +28,10 @@ public class Tecnico extends EmpleadoSalarioFijo implements SalarioBonificable{
 	public double calcularSalarioTotal() {
 		return calcularSalario() + calcularBonificacion();
 	}
+	
+	@Override
+	public String getTipoEmpleado() {
+		return "Técnico";
+	}
 
 }

@@ -18,10 +18,13 @@ public class PanelBusqueda extends JPanel {
     }
     
     public void inicializarComponentes() {
-    	buscarPorComboBox = new JComboBox<>(new String[]{"Nombre", "Cédula", "Correo"});
+    	buscarPorComboBox = new JComboBox<>(new String[]{"Seleccionar", "Nombre", "Cédula", "Correo"});
+    	buscarPorComboBox.setActionCommand("BUSCAR_POR");
         buscarTextField = new JTextField(20);
         buscarButton = new JButton("Buscar");
-        tipoEmpleadoComboBox = new JComboBox<>(new String[]{"Ingeniero Junior", "Ingeniero Senior", "Técnico", "Empleado a Comisión"});
+        buscarButton.setActionCommand("BUSCAR");
+        tipoEmpleadoComboBox = new JComboBox<>(new String[]{"Seleccionar", "Ingeniero Junior", "Ingeniero Senior", "Técnico", "Empleado a Comisión"});
+        tipoEmpleadoComboBox.setActionCommand("TIPO");
         buscarPor = new JLabel("Buscar por:");
         filtrar = new JLabel("Filtrar por:");
         
@@ -32,4 +35,53 @@ public class PanelBusqueda extends JPanel {
         add(filtrar);
         add(tipoEmpleadoComboBox);
     }
+
+	public JComboBox<String> getBuscarPorComboBox() {
+		return buscarPorComboBox;
+	}
+
+	public void setBuscarPorComboBox(JComboBox<String> buscarPorComboBox) {
+		this.buscarPorComboBox = buscarPorComboBox;
+	}
+
+	public JComboBox<String> getTipoEmpleadoComboBox() {
+		return tipoEmpleadoComboBox;
+	}
+
+	public void setTipoEmpleadoComboBox(JComboBox<String> tipoEmpleadoComboBox) {
+		this.tipoEmpleadoComboBox = tipoEmpleadoComboBox;
+	}
+
+	public JButton getBuscarButton() {
+		return buscarButton;
+	}
+
+	public void setBuscarButton(JButton buscarButton) {
+		this.buscarButton = buscarButton;
+	}
+
+	public JTextField getBuscarTextField() {
+		return buscarTextField;
+	}
+
+	public void setBuscarTextField(JTextField buscarTextField) {
+		this.buscarTextField = buscarTextField;
+	}
+
+	public JLabel getBuscarPor() {
+		return buscarPor;
+	}
+
+	public void setBuscarPor(JLabel buscarPor) {
+		this.buscarPor = buscarPor;
+	}
+
+	public JLabel getFiltrar() {
+		return filtrar;
+	}
+
+	public void setFiltrar(JLabel filtrar) {
+		this.filtrar = filtrar;
+	}
+    
 }

@@ -13,37 +13,20 @@ public class VentanaEmpleado extends JFrame {
         setSize(700, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
+        setVisible(false);
 
         panelSuperior = new PanelEmpleadoSuperior();
         panelDinamico = new PanelEmpleadoDinamico();
 
         add(panelSuperior, BorderLayout.NORTH);
         add(panelDinamico, BorderLayout.CENTER);
-
-        panelSuperior.getTipoEmpleadoComboBox().addActionListener(e -> actualizarPanelDinamico());
     }
 
-    private void actualizarPanelDinamico() {
-        String tipoEmpleado = (String) panelSuperior.getTipoEmpleadoComboBox().getSelectedItem();
-        JPanel nuevoPanel;
+    public PanelEmpleadoSuperior getPanelSuperior() {
+        return panelSuperior;
+    }
 
-        switch (tipoEmpleado) {
-            case "Empleado a Comisión":
-                nuevoPanel = new PanelEmpleadoComision();
-                break;
-            case "Ingeniero Junior":
-                nuevoPanel = new PanelIngenieroJunior();
-                break;
-            case "Ingeniero Senior":
-                nuevoPanel = new PanelIngenieroSenior();
-                break;
-            case "Técnico":
-                nuevoPanel = new PanelTecnico();
-                break;
-            default:
-                nuevoPanel = new JPanel();
-        }
-
-        panelDinamico.mostrarPanelEmpleado(nuevoPanel);
+    public PanelEmpleadoDinamico getPanelDinamico() {
+        return panelDinamico;
     }
 }

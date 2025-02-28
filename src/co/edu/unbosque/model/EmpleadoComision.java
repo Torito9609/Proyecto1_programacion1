@@ -65,9 +65,9 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 		return "El tipo de empleado es: Por comisión\n"
 				+ super.toString() 
 				+ String.format(
-				"\nEl salario fijo del empleado es: %d\n"
+				"\nEl salario fijo del empleado es: %f\n"
 				+ "Los clientes captados son: %d\n"
-				+ "La comisión por cleinte es: %d\n",
+				+ "La comisión por cleinte es: %f\n",
 				SALARIO_FIJO, clientesCaptados, comisionPorCliente);
 	}
 
@@ -83,13 +83,6 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 
 	@Override
 	public double calcularBonificacion() {
-		if(clientesCaptados > 10) {
-			comisionPorCliente = 2000000;
-		}else if(clientesCaptados > 5){
-			comisionPorCliente = 1000000;
-		}else {
-			comisionPorCliente = 5000000;
-		} 
 		return comisionPorCliente * clientesCaptados;
 	}
 
@@ -112,6 +105,11 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public String getTipoEmpleado() {
+		return "Empleado a comisión";
 	}
 
 }

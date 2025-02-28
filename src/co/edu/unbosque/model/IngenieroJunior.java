@@ -6,7 +6,7 @@ public class IngenieroJunior extends EmpleadoSalarioFijo implements SalarioBonif
 	NivelIngenieroJunior nivel;
 
 	public IngenieroJunior(String cedula, String nombre, String apellidos, String telefono, String correoInstitucional,
-			String direccionDomiciliaria, int anioIngreso, String genero, NivelIngenieroJunior nivel, LocalDate fechaNacimiento) {
+			String direccionDomiciliaria, int anioIngreso, String genero, LocalDate fechaNacimiento, NivelIngenieroJunior nivel) {
 		super(cedula, nombre, apellidos, telefono, correoInstitucional, direccionDomiciliaria, anioIngreso, genero, fechaNacimiento);
 		this.nivel = nivel;	
 	}
@@ -54,6 +54,11 @@ public class IngenieroJunior extends EmpleadoSalarioFijo implements SalarioBonif
 		}else {
 			return false;
 		}
+	}
+	
+	@Override
+	public String getTipoEmpleado() {
+		return "Ingeniero Junior";
 	}
 
 }

@@ -6,9 +6,9 @@ import javax.swing.*;
 public class VentanaPrincipal extends JFrame {
 
     private PanelBusqueda panelBusqueda;
-    private PanelSidebar panelSidebar;
+    private PanelLateral panelLateral;
     private PanelTabla panelTabla;
-    private PanelInferior panelDetalles;
+    private PanelInferior panelInferior;
 
     public VentanaPrincipal() {
         setTitle("Gestión de Empleados");
@@ -27,13 +27,47 @@ public class VentanaPrincipal extends JFrame {
         panelBusqueda = new PanelBusqueda();
         add(panelBusqueda, BorderLayout.NORTH);
 
-        panelSidebar = new PanelSidebar();
-        add(panelSidebar, BorderLayout.WEST);
+        panelLateral = new PanelLateral();
+        add(panelLateral, BorderLayout.WEST);
 
         panelTabla = new PanelTabla();
         add(panelTabla, BorderLayout.CENTER);
 
-        panelDetalles = new PanelInferior();
-        add(panelDetalles, BorderLayout.SOUTH);
+        panelInferior = new PanelInferior();
+        add(panelInferior, BorderLayout.SOUTH);
     }
+
+	public PanelBusqueda getPanelBusqueda() {
+		return panelBusqueda;
+	}
+
+	public void setPanelBusqueda(PanelBusqueda panelBusqueda) {
+		this.panelBusqueda = panelBusqueda;
+	}
+
+	public PanelLateral getPanelLateral() {
+		return panelLateral;
+	}
+
+	public void setPanelLateral(PanelLateral panelSidebar) {
+		this.panelLateral = panelSidebar;
+	}
+
+	public PanelTabla getPanelTabla() {
+		return panelTabla;
+	}
+
+	public void setPanelTabla(PanelTabla panelTabla) {
+		this.panelTabla = panelTabla;
+	}
+
+	public PanelInferior getPanelInferior() {
+		return panelInferior;
+	}
+
+	public void setPanelInferior(PanelInferior panelDetalles) {
+		this.panelInferior = panelDetalles;
+	}
+    
+    
 }

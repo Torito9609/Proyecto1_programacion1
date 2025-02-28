@@ -159,4 +159,8 @@ public abstract class Empleado {
 		return LocalDate.now().getYear() - fechaNacimiento.getYear();
 	}
 	
+	public String getTipoEmpleado() {
+		return "Empleado";
+	}
+	
 }

@@ -12,6 +12,7 @@ public class PanelIngenieroJunior extends JPanel {
 
         add(new JLabel("Nivel:"));
         nivelComboBox = new JComboBox<>(new String[]{"Junior 1", "Junior 2", "Junior 3"});
+        nivelComboBox.setActionCommand("NIVEL_JUNIOR");
         add(nivelComboBox);
     }
 }

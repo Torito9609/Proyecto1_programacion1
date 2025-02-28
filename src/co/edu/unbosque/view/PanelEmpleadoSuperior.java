@@ -54,6 +54,7 @@ public class PanelEmpleadoSuperior extends JPanel {
 
         add(new JLabel("Tipo de empleado:"));
         tipoEmpleadoComboBox = new JComboBox<>(new String[]{"Ingeniero Junior", "Ingeniero Senior", "Técnico", "Empleado a Comisión"});
+        tipoEmpleadoComboBox.setActionCommand("TIPO_EMPLEADO");
         add(tipoEmpleadoComboBox);
     }
 

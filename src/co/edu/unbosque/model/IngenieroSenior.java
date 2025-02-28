@@ -58,5 +58,10 @@ public class IngenieroSenior extends EmpleadoSalarioFijo implements SalarioBonif
 	public double calcularSalarioTotal() {
 		return calcularSalario() + calcularBonificacion();
 	}
+	
+	@Override
+	public String getTipoEmpleado() {
+		return "Ingeniero Senior";
+	}
 
 }
