@@ -1,3 +1,11 @@
+/**
+ * Clase que representa un empleado por comisión
+ * implementa las interfaces que calculan salario y 
+ * bonifican salario proporcionando la lógica pertinente.
+ * @author Kevin Toro
+ * @version 1.0
+ */
+
 package co.edu.unbosque.model;
 
 import java.time.LocalDate;
@@ -7,7 +15,19 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 	private int clientesCaptados;
 	private double comisionPorCliente;
 	
-
+	/**
+	 * 
+	 * @param cedula
+	 * @param nombre
+	 * @param apellidos
+	 * @param telefono
+	 * @param correoInstitucional
+	 * @param direccionDomiciliaria
+	 * @param anioIngreso
+	 * @param genero
+	 * @param fechaNacimiento
+	 * @param clientesCaptados 
+	 */
 	public EmpleadoComision(String cedula, String nombre, String apellidos, String telefono, String correoInstitucional,
 			String direccionDomiciliaria, int anioIngreso, String genero, LocalDate fechaNacimiento) {
 		super(cedula, nombre, apellidos, telefono, correoInstitucional, direccionDomiciliaria, anioIngreso, genero, fechaNacimiento);
@@ -78,9 +98,16 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 		return calcularSalario();
 	}
 	
+	public void asignarComisionPorCliente() {
+		int min = 500000;
+		int max = 2000000;
+		comisionPorCliente = (Math.random() * (max - min + 1)) + min;
+	}
+	
 	public boolean asignarNumeroClientes(int numeroCLientes) {
 		if(numeroCLientes > 0) {
 			clientesCaptados = numeroCLientes;
+			asignarComisionPorCliente();
 			return true;
 		} else {
 			return false;

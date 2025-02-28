@@ -5,27 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Empresa {
-	private String nombre;
 	private List<Empleado> listaEmpleados;
-	private LocalDate fechaCreacion;
-	private String direccion;
-	private String telefono;
 	
-	public Empresa(String nombre, LocalDate fechaCreacion, String direccion, String telefono) {
-		super();
-		this.nombre = nombre;
-		this.fechaCreacion = fechaCreacion;
-		this.direccion = direccion;
-		this.telefono = telefono;
+	
+	public Empresa() {
 		this.listaEmpleados = new ArrayList<>();
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public List<Empleado> getListaEmpleados() {
@@ -35,37 +19,13 @@ public class Empresa {
 	public void setListaEmpleados(List<Empleado> listaEmpleados) {
 		this.listaEmpleados = listaEmpleados;
 	}
-
-	public LocalDate getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(LocalDate fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
 	
 	public void agregarEmpleado(Empleado empleado) {
 		listaEmpleados.add(empleado);
 	}
 	
 	public boolean eliminarEmpleado(String cedulaEliminar) {
-		Empleado empleadoEliminar = buscarEmpleado(cedulaEliminar);
+		Empleado empleadoEliminar = buscarEmpleadoPorCedula(cedulaEliminar);
 		if(empleadoEliminar == null) {
 			return false;
 		}
@@ -73,7 +33,7 @@ public class Empresa {
 		return true;
 	}
 	
-	public Empleado buscarEmpleado(String cedulaBuscar) {
+	public Empleado buscarEmpleadoPorCedula(String cedulaBuscar) {
 		for(Empleado empleado : listaEmpleados) {
 			if(empleado.getCedula().equals(cedulaBuscar)) {
 				return empleado;
@@ -81,12 +41,31 @@ public class Empresa {
 		}
 		return null;
 	}
-	/*
-	public boolean editarEmpleado(String cedulaEditar, Empleado empleadoActualizado) {
-		Empleado empleadoEditar = buscarEmpleado(cedulaEditar);
-		if(empleadoEditar == null) {
-			return false;
-		}
-		
-	}*/
+	
+	public Empleado buscarEmpleadoPorCorreo(String correoBuscar) {
+	    for (Empleado empleado : listaEmpleados) {
+	        if (empleado.getCorreoInstitucional().equalsIgnoreCase(correoBuscar)) {
+	            return empleado;
+	        }
+	    }
+	    return null;
+	}
+	
+
+	public List<Empleado> buscarEmpleadoPorNombre(String nombreOApellidoBuscar) {
+	    List<Empleado> empleadosCoincidentes = new ArrayList<>();
+	    for (Empleado empleado : listaEmpleados) {
+	        String nombreCompleto = empleado.getNombre() + " " + empleado.getApellidos();
+	        if (empleado.getNombre().equalsIgnoreCase(nombreOApellidoBuscar) ||
+	            empleado.getApellidos().equalsIgnoreCase(nombreOApellidoBuscar) ||
+	            nombreCompleto.toLowerCase().contains(nombreOApellidoBuscar.toLowerCase())) {
+	            empleadosCoincidentes.add(empleado);
+	        }
+	    }
+	    return empleadosCoincidentes;
+	}
+
+
+
+
 }

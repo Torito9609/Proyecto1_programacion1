@@ -1,3 +1,12 @@
+/**
+ * Clase abstracta que representa el empleado de la empresa.
+ * Proporciona atributos en común, métodos en común para todos
+ * los empleados.
+ * @author Kevin Toro
+ * @version 1.0
+ * 
+ */
+
 package co.edu.unbosque.model;
 
 import java.time.LocalDate;
@@ -12,6 +21,20 @@ public abstract class Empleado {
 	protected int anioIngreso;
 	protected String genero;
 	protected LocalDate fechaNacimiento;
+	
+	/**
+	 *Constructor para la clase abstracta empleado
+	 *
+	 *@param cedula la cedula del empleado
+	 *@param nombre el nombre del empleado
+	 *@param apellidos los apellidos del empleado
+	 *@param telefono el telefono del empleado
+	 *@param correoInstitucional debe ser unsbosque.edu.co
+	 *@param direccionDomiciliaria la direccion del empleado
+	 *@param anioIngreso, el anio en que in gresa el empleado
+	 *@param genero, el genero del empleado (masculino o femenino)
+	 *@param fechaNacimiento La fecha de nacimiento del empleado
+	 */
 	
 	public Empleado(String cedula, String nombre, String apellidos, String telefono, String correoInstitucional,
 			String direccionDomiciliaria, int anioIngreso, String genero, LocalDate fechaNacimiento) {
@@ -116,12 +139,22 @@ public abstract class Empleado {
 				direccionDomiciliaria, anioIngreso, genero, calcularEdad(),
 				calcularAntiguedad());
 	}
-
+	
+	/**
+	 * Calcula la antigüedad del empleado en la empresa
+	 * 
+	 * @return El número de años de antigüedad
+	 */
 	public int calcularAntiguedad() {
 		int anioActual = java.time.Year.now().getValue();
 		return anioActual - this.anioIngreso;
 	}
 	
+	/**
+	 * Calcula la edad del empleado
+	 * 
+	 * @return La edad del empleado
+	 */
 	public int calcularEdad() {
 		return LocalDate.now().getYear() - fechaNacimiento.getYear();
 	}
