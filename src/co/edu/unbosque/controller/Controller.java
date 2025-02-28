@@ -55,15 +55,20 @@ public class Controller implements ActionListener{
 		vista.getVentanaEmpleado().getPanelSuperior().getTipoEmpleadoComboBox().addActionListener(this);
 		
 	}
+	
+	public String obtenerTextoBusqueda() {
+		return vista.getVentanaPrincipal().getPanelBusqueda().getBuscarTextField().getText().trim().toLowerCase();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
 		
 		if(comando.equals("BUSCAR")) {
-			String texto = vista.getVentanaPrincipal().getPanelBusqueda().getBuscarTextField().getText().trim();
+			String texto = obtenerTextoBusqueda();
 			int pos = vista.getVentanaPrincipal().getPanelBusqueda().getBuscarPorComboBox().getSelectedIndex();
-			String tipoBusqueda = vista.getVentanaPrincipal().getPanelBusqueda().getBuscarPorComboBox().getItemAt(pos);
+			String tipoBusqueda = vista.getVentanaPrincipal().getPanelBusqueda().getBuscarPorComboBox().getItemAt(pos).toLowerCase();
+			List<Empleado> coincidencias = new ArrayList();
 			
 			if(tipoBusqueda == null || tipoBusqueda.isEmpty() || tipoBusqueda.equals("Seleccionar")) {
 				JOptionPane.showMessageDialog(
@@ -76,32 +81,63 @@ public class Controller implements ActionListener{
 			}else if(texto == null || texto.isEmpty()){
 				JOptionPane.showMessageDialog(
 					    null, 
-					    "Por favor ingrese un nombre.", 
+					    "Por favor ingrese algo para buscar.", 
 					    "Error", 
 					    JOptionPane.ERROR_MESSAGE
 					);
 				
-			}else{
-				String nombreBuscar = vista.getVentanaPrincipal().getPanelBusqueda().getBuscarTextField().getText();
-				List<Empleado> coincidenciasNombre = new ArrayList();
-				coincidenciasNombre = empresa.buscarEmpleadoPorNombre(nombreBuscar);
+			}else if(tipoBusqueda.equals("nombre")){
+				String nombreBuscar = texto;
+				coincidencias = empresa.buscarEmpleadoPorNombre(nombreBuscar);
 				
-				if(coincidenciasNombre.isEmpty()) {
+				if(coincidencias.isEmpty()) {
 					JOptionPane.showMessageDialog(
 						    null, 
 						    "No existe empleado con ese nombre.", 
 						    "Error", 
 						    JOptionPane.WARNING_MESSAGE
-						);
-					
+						);		
 				}else {
-					vista.getVentanaPrincipal().getPanelTabla().actualizarTabla(coincidenciasNombre);
+					vista.getVentanaPrincipal().getPanelTabla().actualizarTabla(coincidencias);
+				}
+				
+			
+			}else if(tipoBusqueda.equals("cédula")) {
+				String cedulaBuscar = texto;
+				Empleado empleadoEncontrado = empresa.buscarEmpleadoPorCedula(cedulaBuscar);
+				
+				if(empleadoEncontrado == null) {
+					JOptionPane.showMessageDialog(
+						    null, 
+						    "No existe empleado con esa cédula.", 
+						    "Error", 
+						    JOptionPane.WARNING_MESSAGE
+						);
+				}else {
+					coincidencias.add(empleadoEncontrado);
+					vista.getVentanaPrincipal().getPanelTabla().actualizarTabla(coincidencias);
+				}
+				
+			}else if(tipoBusqueda.equals("correo")) {
+				String correoBuscar = texto;
+				Empleado empleadoEncontrado = empresa.buscarEmpleadoPorCorreo(correoBuscar);
+				
+				if(empleadoEncontrado == null) {
+					JOptionPane.showMessageDialog(
+						    null, 
+						    "No existe empleado con ese correo.", 
+						    "Error", 
+						    JOptionPane.WARNING_MESSAGE
+						);
+				}else {
+					coincidencias.add(empleadoEncontrado);
+					vista.getVentanaPrincipal().getPanelTabla().actualizarTabla(coincidencias);
 				}	
 			}
 			
 		}else if(comando.equals("TIPO")) {
-			int pos = vista.getVentanaPrincipal().getPanelBusqueda().getTipoEmpleadoComboBox().getSelectedIndex();
-			String opcion = vista.getVentanaPrincipal().getPanelBusqueda().getTipoEmpleadoComboBox().getItemAt(pos).toLowerCase();
+			int pos2 = vista.getVentanaPrincipal().getPanelBusqueda().getTipoEmpleadoComboBox().getSelectedIndex();
+			String opcion = vista.getVentanaPrincipal().getPanelBusqueda().getTipoEmpleadoComboBox().getItemAt(pos2).toLowerCase();
 			
 			
 			if(opcion.equals("seleccionar")) {
@@ -122,7 +158,7 @@ public class Controller implements ActionListener{
 					vista.getVentanaPrincipal().getPanelTabla().actualizarTabla(coincidenciasTipo);
 				}	
 			}
-			
+		
 		}else if(comando.equals("INICIO")) {
 			vista.getVentanaPrincipal().getPanelBusqueda().setVisible(false);
 			vista.getVentanaPrincipal().getPanelInferior().setVisible(false);
@@ -135,6 +171,7 @@ public class Controller implements ActionListener{
 			
 		}else if(comando.equals("CREAR_EMPLEADO")) {
 			vista.getVentanaEmpleado().setVisible(true);
+			
 		}else if(comando.equals("EDITAR_EMPLEADO")) {
 			vista.getVentanaEmpleado().setVisible(true);
 		}	
