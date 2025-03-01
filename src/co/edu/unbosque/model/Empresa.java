@@ -22,33 +22,33 @@ public class Empresa {
 				NivelIngenieroJunior.NIVEL_1);
 		
 		Empleado prueba2 = new IngenieroSenior(
-				"123456",
+				"1022419275",
 				"Ing Senior",
 				"Prueba",
 				"654987",
-				"senior@ejemplo",
+				"senior@unbosque.edu.co",
 				"calle falsa 123",
 				2024,
 				"Masculino",
 				LocalDate.of(1996,9,9));
 		
 		Empleado prueba3 = new Tecnico(
-				"6546546", 
+				"1022419276", 
 				"Tecnico", 
 				"Prueba", 
 				"654654654", 
-				"tecnico@prueba.com", 
+				"tecnico@unbosque.edu.co", 
 				"Calle falsa 123", 
 				2002,
 				"Femenino", 
 				LocalDate.of(1987,10,28));
 		
 		Empleado prueba4 = new EmpleadoComision(
-				"321321", 
+				"1022419277", 
 				"Comision", 
 				"Prueba", 
 				"654654", 
-				"comision@correo.com", 
+				"comision@unbosque.edu.co", 
 				"calle falsa 124", 
 				2015, 
 				"Femenino", 
@@ -137,41 +137,53 @@ public class Empresa {
 	}
 	
 	public Empleado crearEmpleado(String tipo, String cedula, String nombre, String apellidos, String telefono, 
-			String correo, String direccion, int anioIngreso, LocalDate fechaNacimiento, String genero, Object atributoAdicional) {
-		switch(tipo) {
-			case "Ingeniero Junior":
-				String nivelString = (String)atributoAdicional;
-				NivelIngenieroJunior nivelJunior;
-				if(nivelString.equals("Nivel 1")) {
-					nivelJunior = NivelIngenieroJunior.NIVEL_1;
-				}else if(nivelString.equals("Nivel 2")) {
-					nivelJunior = NivelIngenieroJunior.NIVEL_2;
-				}else if(nivelString.equals("Nivel 3")) {
-					nivelJunior = NivelIngenieroJunior.NIVEL_3;
-				}else {
-					nivelJunior = null;
-				}
-				return new IngenieroJunior(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
-						fechaNacimiento, nivelJunior);
-				
-			case "Ingeniero Senior":
-				int numeroVentas = (int) atributoAdicional;
-				return new IngenieroSenior(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
-						fechaNacimiento, numeroVentas);
-				
-			case "Tecnico":
-				return new Tecnico(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
-						fechaNacimiento);
-				
-			case "Empleado a Comisión":
-				int clientesCaptados = (int)atributoAdicional;
-				return new EmpleadoComision(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
-						fechaNacimiento, clientesCaptados);
-				
-			default:
-				return null;
-		}
-	}
+            String correo, String direccion, int anioIngreso, LocalDate fechaNacimiento, String genero, Object atributoAdicional) {
+    
+    for (Empleado empleadoExistente : listaEmpleados) {
+        if (empleadoExistente.getCedula().equals(cedula)) {
+            System.out.println("Error: Ya existe un empleado con la misma cédula.");
+            return null; 
+        }
+        if (empleadoExistente.getCorreoInstitucional().equals(correo)) {
+            return null;
+        }
+    }
+
+    switch(tipo) {
+        case "Ingeniero Junior":
+            String nivelString = (String)atributoAdicional;
+            NivelIngenieroJunior nivelJunior;
+            if(nivelString.equals("Nivel 1")) {
+                nivelJunior = NivelIngenieroJunior.NIVEL_1;
+            } else if(nivelString.equals("Nivel 2")) {
+                nivelJunior = NivelIngenieroJunior.NIVEL_2;
+            } else if(nivelString.equals("Nivel 3")) {
+                nivelJunior = NivelIngenieroJunior.NIVEL_3;
+            } else {
+                nivelJunior = null;
+            }
+            return new IngenieroJunior(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
+                    fechaNacimiento, nivelJunior);
+            
+        case "Ingeniero Senior":
+            int numeroVentas = (int) atributoAdicional;
+            return new IngenieroSenior(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
+                    fechaNacimiento, numeroVentas);
+            
+        case "Tecnico":
+            return new Tecnico(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
+                    fechaNacimiento);
+            
+        case "Empleado a Comisión":
+            int clientesCaptados = (int)atributoAdicional;
+            return new EmpleadoComision(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
+                    fechaNacimiento, clientesCaptados);
+            
+        default:
+            return null;
+    }
+}
+
 
 
 

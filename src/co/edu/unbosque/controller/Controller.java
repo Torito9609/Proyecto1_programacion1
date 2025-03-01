@@ -405,6 +405,9 @@ public class Controller implements ActionListener{
 		}else if(comando.equals("TIPO_EMPLEADO")) {
 			String tipoEmpleado = vista.getVentanaEmpleado().getPanelSuperior().getTipoEmpleadoComboBox().getSelectedItem().toString();
 			vista.getVentanaEmpleado().getPanelDinamico().mostrarPanel(tipoEmpleado);
+			if(tipoEmpleado.equals("Ingeniero Junior")) {
+				PanelIngenieroJunior panelJunior = (PanelIngenieroJunior)vista.getVentanaEmpleado().getPanelDinamico().getPanelActual();
+			}
 		}
 		else if(comando.equals("EDITAR")) {
 			

@@ -33,7 +33,8 @@ public class IngenieroSenior extends EmpleadoSalarioFijo implements SalarioBonif
 	public String toString() {
 		return "El cargo es: Ingeniero Senior\n"
 				+ super.toString()
-				+ "\nEl número de ventas cerradas es: " + numeroVentas;
+				+ "\nEl número de ventas cerradas es: " + numeroVentas
+				+"\n El salario total es:" + calcularSalarioTotal();
 	}
 
 
@@ -49,20 +50,23 @@ public class IngenieroSenior extends EmpleadoSalarioFijo implements SalarioBonif
 
 	@Override
 	public double calcularBonificacion() {
-		if(numeroVentas <= 4) {
-			return 0.1;
-		}else if(numeroVentas >= 5 && numeroVentas <= 8) {
-			return 0.15;
-		}else if(numeroVentas >=9 && numeroVentas <= 12) {
-			return 0.20;
-		}else  {
-			return 0.25;
-		}
+	    double porcentaje = 0;
+	    if (numeroVentas <= 4) {
+	        porcentaje = 0.10;
+	    } else if (numeroVentas <= 8) {
+	        porcentaje = 0.15;
+	    } else if (numeroVentas <= 12) {
+	        porcentaje = 0.20;
+	    } else {
+	        porcentaje = 0.25;
+	    }
+	    return super.calcularSalario() * porcentaje;
 	}
+
 
 	@Override
 	public double calcularSalarioTotal() {
-		return calcularSalario() + calcularBonificacion();
+		return super.calcularSalario() + calcularBonificacion();
 	}
 	
 	@Override
@@ -72,7 +76,8 @@ public class IngenieroSenior extends EmpleadoSalarioFijo implements SalarioBonif
 	
 	@Override
 	public void actualizarAtributoEspecifico(Object numeroVentas) {
-		this.numeroVentas = (int)numeroVentas;
+		asignarNumeroVentas((int)numeroVentas);
+		calcularSalarioTotal();
 	}
 
 }

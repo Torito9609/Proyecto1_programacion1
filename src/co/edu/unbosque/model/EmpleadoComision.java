@@ -11,7 +11,7 @@ package co.edu.unbosque.model;
 import java.time.LocalDate;
 
 public class EmpleadoComision extends Empleado implements SalarioCalculable, SalarioBonificable{
-	private final double SALARIO_FIJO = 1200000.00;
+	private double salario = 1200000.00;
 	private int clientesCaptados;
 	private double comisionPorCliente;
 	
@@ -40,6 +40,7 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 		super(cedula, nombre, apellidos, telefono, correoInstitucional, direccionDomiciliaria, anioIngreso, genero, fechaNacimiento);
 		this.clientesCaptados = clientes;
 		asignarComisionPorCliente();
+		calcularSalario();  
 	}
 	
 
@@ -50,6 +51,7 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 
 	public void setClientesCaptados(int clientesCaptados) {
 		this.clientesCaptados = clientesCaptados;
+		calcularSalario();  
 	}
 
 
@@ -60,11 +62,12 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 
 	public void setComisionPorCliente(double comisionPorCliente) {
 		this.comisionPorCliente = comisionPorCliente;
+		calcularSalario();  
 	}
 
 
 	public double getSALARIO_FIJO() {
-		return SALARIO_FIJO;
+		return salario;
 	}
 	
 	@Override
@@ -74,55 +77,58 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 				+ String.format(
 				"\nEl salario fijo del empleado es: %f\n"
 				+ "Los clientes captados son: %d\n"
-				+ "La comisión por cleinte es: %f\n",
-				SALARIO_FIJO, clientesCaptados, comisionPorCliente);
+				+ "La comisión por cliente es: %f\n",
+				salario, clientesCaptados, comisionPorCliente);
 	}
 
 	@Override
 	public double calcularSalario() {
 		double salarioBonificado = calcularBonificacion();
-		if(salarioBonificado < SALARIO_FIJO) {
-			return salarioBonificado + SALARIO_FIJO;
-		}else {
-			return salarioBonificado;
+		if (salarioBonificado < salario) {
+			salario += salarioBonificado;  
+		} else {
+			salario = salarioBonificado;  
 		}
+		return salario;
 	}
 
 	@Override
 	public double calcularBonificacion() {
 		return comisionPorCliente * clientesCaptados;
 	}
+	
+	public void asignarComisionPorCliente() {
+		int min = 500000;
+		int max = 2000000;
+		comisionPorCliente = (int) (Math.random() * (max - min + 1)) + min;
+		calcularSalario();  
+	}
+	
+	public boolean asignarNumeroClientes(int numeroClientes) {
+	    if (numeroClientes > 0) {
+	        clientesCaptados = numeroClientes;
+	        asignarComisionPorCliente();
+	        calcularSalario(); 
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+
+	@Override
+	public String getTipoEmpleado() {
+		return "Empleado a Comisión";
+	}
+
+	@Override
+	public void actualizarAtributoEspecifico(Object clientesCaptados) {
+		this.clientesCaptados = (int) clientesCaptados;
+		asignarComisionPorCliente();
+		calcularSalario();  
+	}
 
 	@Override
 	public double calcularSalarioTotal() {
 		return calcularSalario();
 	}
-	
-	public void asignarComisionPorCliente() {
-		int min = 500000;
-		int max = 2000000;
-		comisionPorCliente = (Math.random() * (max - min + 1)) + min;
-	}
-	
-	public boolean asignarNumeroClientes(int numeroCLientes) {
-		if(numeroCLientes > 0) {
-			clientesCaptados = numeroCLientes;
-			asignarComisionPorCliente();
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	@Override
-	public String getTipoEmpleado() {
-		return "Empleado a Comisión";
-	}
-	
-	@Override
-	public void actualizarAtributoEspecifico(Object clientesCaptados) {
-		this.clientesCaptados = (int)clientesCaptados;
-	}
-
-
 }

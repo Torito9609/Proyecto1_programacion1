@@ -10,6 +10,7 @@
 package co.edu.unbosque.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public abstract class Empleado {
 	private String cedula;
@@ -18,9 +19,9 @@ public abstract class Empleado {
 	private String telefono;
 	private String correoInstitucional;
 	private String direccionDomiciliaria;
-	protected int anioIngreso;
-	protected String genero;
-	protected LocalDate fechaNacimiento;
+	private int anioIngreso;
+	private String genero;
+	private LocalDate fechaNacimiento;
 	
 	/**
 	 *Constructor para la clase abstracta empleado
@@ -156,7 +157,7 @@ public abstract class Empleado {
 	 * @return La edad del empleado
 	 */
 	public int calcularEdad() {
-		return LocalDate.now().getYear() - fechaNacimiento.getYear();
+	    return Period.between(fechaNacimiento, LocalDate.now()).getYears();
 	}
 	
 	public String getTipoEmpleado() {

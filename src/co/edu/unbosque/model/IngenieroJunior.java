@@ -29,37 +29,41 @@ public class IngenieroJunior extends EmpleadoSalarioFijo implements SalarioBonif
 	public String toString() {
 		return "El cargo es: Ingeniero Junior\n" 
 				+ super.toString()
-				+ "\nEl nivel del ingeniero es: " + nivel;
+				+ "\nEl nivel del ingeniero es: " + nivel
+				+"\n El salario total es: " + calcularSalarioTotal();
 	}
 
 	@Override
 	public double calcularBonificacion() {
-		switch(nivel) {
-		case NIVEL_2:
-			return super.calcularSalario() * 0.06;
-			
-		case NIVEL_3:
-			return super.calcularSalario() * 0.09;
-			
-		default:
-			return 0;
-		}	
+		switch(this.nivel) {
+			case NIVEL_2:
+				return super.calcularSalario() * 0.06;
+				
+			case NIVEL_3:
+				return super.calcularSalario() * 0.09;
+				
+			default:
+				return 0;
+			}	
 	}
 	
 	public double calcularSalarioTotal() {
-		return calcularSalario() + calcularBonificacion();
+		return super.calcularSalario() + calcularBonificacion();
 	}
 	
 	@Override
 	public void actualizarAtributoEspecifico(Object nivelString) {
 		if(nivelString.equals("Nivel 1")) {
-			nivel = NivelIngenieroJunior.NIVEL_1;
+			setNivel(NivelIngenieroJunior.NIVEL_1);
+			calcularSalarioTotal();
 			
 		}else if(nivelString.equals("Nivel 2")) {
-			nivel = NivelIngenieroJunior.NIVEL_2;
+			setNivel(NivelIngenieroJunior.NIVEL_2);
+			calcularSalarioTotal();
 			
 		}else if(nivelString.equals("Nivel 3")){
-			nivel = NivelIngenieroJunior.NIVEL_3;
+			setNivel(NivelIngenieroJunior.NIVEL_3);
+			calcularSalarioTotal();
 		}
 	}
 	
