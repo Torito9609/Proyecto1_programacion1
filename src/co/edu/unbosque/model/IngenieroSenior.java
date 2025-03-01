@@ -11,6 +11,12 @@ public class IngenieroSenior extends EmpleadoSalarioFijo implements SalarioBonif
 		this.numeroVentas = 0;
 	}
 	
+	public IngenieroSenior(String cedula, String nombre, String apellidos, String telefono, String correoInstitucional,
+			String direccionDomiciliaria, int anioIngreso, String genero, LocalDate fechaNacimiento, int numeroVentas) {
+		super(cedula, nombre, apellidos, telefono, correoInstitucional, direccionDomiciliaria, anioIngreso, genero, fechaNacimiento);
+		this.numeroVentas = numeroVentas;
+	}
+	
 
 	public int getNumeroVentas() {
 		return numeroVentas;
@@ -62,6 +68,11 @@ public class IngenieroSenior extends EmpleadoSalarioFijo implements SalarioBonif
 	@Override
 	public String getTipoEmpleado() {
 		return "Ingeniero Senior";
+	}
+	
+	@Override
+	public void actualizarAtributoEspecifico(Object numeroVentas) {
+		this.numeroVentas = (int)numeroVentas;
 	}
 
 }

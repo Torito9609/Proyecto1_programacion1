@@ -1,5 +1,5 @@
 /**
- * Clase que representa un empleado por comisión
+  * Clase que representa un empleado por comisión
  * implementa las interfaces que calculan salario y 
  * bonifican salario proporcionando la lógica pertinente.
  * @author Kevin Toro
@@ -33,6 +33,13 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 		super(cedula, nombre, apellidos, telefono, correoInstitucional, direccionDomiciliaria, anioIngreso, genero, fechaNacimiento);
 		this.clientesCaptados = 0;
 		this.comisionPorCliente = 0;
+	}
+	
+	public EmpleadoComision(String cedula, String nombre, String apellidos, String telefono, String correoInstitucional,
+			String direccionDomiciliaria, int anioIngreso, String genero, LocalDate fechaNacimiento, int clientes) {
+		super(cedula, nombre, apellidos, telefono, correoInstitucional, direccionDomiciliaria, anioIngreso, genero, fechaNacimiento);
+		this.clientesCaptados = clientes;
+		asignarComisionPorCliente();
 	}
 	
 
@@ -109,7 +116,13 @@ public class EmpleadoComision extends Empleado implements SalarioCalculable, Sal
 	
 	@Override
 	public String getTipoEmpleado() {
-		return "Empleado a comisión";
+		return "Empleado a Comisión";
 	}
+	
+	@Override
+	public void actualizarAtributoEspecifico(Object clientesCaptados) {
+		this.clientesCaptados = (int)clientesCaptados;
+	}
+
 
 }

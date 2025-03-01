@@ -163,4 +163,8 @@ public abstract class Empleado {
 		return "Empleado";
 	}
 	
+	public void actualizarAtributoEspecifico(Object atributo) {
+		
+	};
+	
 }

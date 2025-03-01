@@ -8,6 +8,7 @@ public class PanelInferior extends JPanel {
     private JButton crearButton;
     private JButton editarButton;
     private JTextArea infoEmpleado;
+    private JButton eliminarButton;
 
     public PanelInferior() {
         setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10)); 
@@ -25,7 +26,11 @@ public class PanelInferior extends JPanel {
         editarButton.setActionCommand("EDITAR_EMPLEADO");
         add(editarButton);
         
-        infoEmpleado = new JTextArea(10, 71);
+        eliminarButton = new JButton("Eliminar empleado");
+        eliminarButton.setActionCommand("ELIMINAR_EMPLEADO");
+        add(eliminarButton);
+        
+        infoEmpleado = new JTextArea(10, 55);
         infoEmpleado.setEditable(false); 
         infoEmpleado.setLineWrap(true);
         infoEmpleado.setWrapStyleWord(true);
@@ -57,5 +62,15 @@ public class PanelInferior extends JPanel {
 	public void setInfoEmpleado(JTextArea infoEmpleado) {
 		this.infoEmpleado = infoEmpleado;
 	}
+
+	public JButton getEliminarButton() {
+		return eliminarButton;
+	}
+
+	public void setEliminarButton(JButton eliminarButton) {
+		this.eliminarButton = eliminarButton;
+	}
+	
+	
     
 }

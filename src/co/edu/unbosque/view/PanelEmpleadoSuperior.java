@@ -6,8 +6,9 @@ import java.awt.*;
 public class PanelEmpleadoSuperior extends JPanel {
 
     private JTextField cedulaField, nombreField, apellidosField, telefonoField, correoField, direccionField;
-    private JComboBox<String> tipoEmpleadoComboBox;
-    private JTextField anioIngresoField, generoField, fechaNacimientoField;
+    private JComboBox<String> tipoEmpleadoComboBox, generoComboBox;
+    private JTextField anioIngresoField;
+    private JSpinner fechaNacimiento;
 
     public PanelEmpleadoSuperior() {
         setLayout(new GridLayout(10, 2, 10, 10)); 
@@ -18,6 +19,7 @@ public class PanelEmpleadoSuperior extends JPanel {
     private void inicializarComponentes() {
         add(new JLabel("Cédula:"));
         cedulaField = new JTextField(20);
+        cedulaField.setEditable(false);
         add(cedulaField);
 
         add(new JLabel("Nombre:"));
@@ -45,15 +47,17 @@ public class PanelEmpleadoSuperior extends JPanel {
         add(anioIngresoField);
 
         add(new JLabel("Género:"));
-        generoField = new JTextField(20);
-        add(generoField);
+        generoComboBox = new JComboBox<>(new String[] {"Seleccionar", "Masculino", "Femenino"});
+        add(generoComboBox);
 
         add(new JLabel("Fecha de nacimiento:"));
-        fechaNacimientoField = new JTextField(20);
-        add(fechaNacimientoField);
+        fechaNacimiento = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(fechaNacimiento, "yyyy-MM-dd");
+        fechaNacimiento.setEditor(editor);
+        add(fechaNacimiento);
 
         add(new JLabel("Tipo de empleado:"));
-        tipoEmpleadoComboBox = new JComboBox<>(new String[]{"Ingeniero Junior", "Ingeniero Senior", "Técnico", "Empleado a Comisión"});
+        tipoEmpleadoComboBox = new JComboBox<>(new String[]{"Seleccionar", "Ingeniero Junior", "Ingeniero Senior", "Técnico", "Empleado a Comisión"});
         tipoEmpleadoComboBox.setActionCommand("TIPO_EMPLEADO");
         add(tipoEmpleadoComboBox);
     }
@@ -122,20 +126,20 @@ public class PanelEmpleadoSuperior extends JPanel {
 		this.anioIngresoField = anioIngresoField;
 	}
 
-	public JTextField getGeneroField() {
-		return generoField;
+	public JComboBox getGeneroComboBox() {
+		return generoComboBox;
 	}
 
-	public void setGeneroField(JTextField generoField) {
-		this.generoField = generoField;
+	public void setGeneroComboBox(JComboBox generoComboBox) {
+		this.generoComboBox = generoComboBox;
 	}
 
-	public JTextField getFechaNacimientoField() {
-		return fechaNacimientoField;
+	public JSpinner getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 
-	public void setFechaNacimientoField(JTextField fechaNacimientoField) {
-		this.fechaNacimientoField = fechaNacimientoField;
+	public void setFechaNacimiento(JSpinner fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 }

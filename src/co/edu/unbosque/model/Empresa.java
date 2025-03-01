@@ -10,11 +10,11 @@ public class Empresa {
 	public Empresa() {
 		this.listaEmpleados = new ArrayList<>();
 		Empleado prueba1 = new IngenieroJunior(
-				"198987987987",
+				"102241927",
 				"Ing Junior",
 				"Prueba",
-				"654987",
-				"junior@ejemplo",
+				"1235698",
+				"junior@unbosque.edu.co",
 				"calle falsa 123",
 				2024,
 				"Masculino",
@@ -135,7 +135,43 @@ public class Empresa {
 
 	    return empleadosFiltrados;
 	}
-
+	
+	public Empleado crearEmpleado(String tipo, String cedula, String nombre, String apellidos, String telefono, 
+			String correo, String direccion, int anioIngreso, LocalDate fechaNacimiento, String genero, Object atributoAdicional) {
+		switch(tipo) {
+			case "Ingeniero Junior":
+				String nivelString = (String)atributoAdicional;
+				NivelIngenieroJunior nivelJunior;
+				if(nivelString.equals("Nivel 1")) {
+					nivelJunior = NivelIngenieroJunior.NIVEL_1;
+				}else if(nivelString.equals("Nivel 2")) {
+					nivelJunior = NivelIngenieroJunior.NIVEL_2;
+				}else if(nivelString.equals("Nivel 3")) {
+					nivelJunior = NivelIngenieroJunior.NIVEL_3;
+				}else {
+					nivelJunior = null;
+				}
+				return new IngenieroJunior(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
+						fechaNacimiento, nivelJunior);
+				
+			case "Ingeniero Senior":
+				int numeroVentas = (int) atributoAdicional;
+				return new IngenieroSenior(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
+						fechaNacimiento, numeroVentas);
+				
+			case "Tecnico":
+				return new Tecnico(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
+						fechaNacimiento);
+				
+			case "Empleado a Comisión":
+				int clientesCaptados = (int)atributoAdicional;
+				return new EmpleadoComision(cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, genero, 
+						fechaNacimiento, clientesCaptados);
+				
+			default:
+				return null;
+		}
+	}
 
 
 
