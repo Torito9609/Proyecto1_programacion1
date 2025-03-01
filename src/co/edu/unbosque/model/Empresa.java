@@ -10,7 +10,7 @@ public class Empresa {
 	public Empresa() {
 		this.listaEmpleados = new ArrayList<>();
 		Empleado prueba1 = new IngenieroJunior(
-				"102241927",
+				"1022419274",
 				"Ing Junior",
 				"Prueba",
 				"1235698",
