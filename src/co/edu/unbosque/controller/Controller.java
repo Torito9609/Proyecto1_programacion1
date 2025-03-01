@@ -57,8 +57,6 @@ public class Controller implements ActionListener{
 	public void asignaOyentes() {
 		vista.getVentanaPrincipal().getPanelBusqueda().getBuscarButton().addActionListener(this);
 		vista.getVentanaPrincipal().getPanelBusqueda().getTipoEmpleadoComboBox().addActionListener(this);
-		vista.getVentanaPrincipal().getPanelLateral().getGestionarButton().addActionListener(this);
-		vista.getVentanaPrincipal().getPanelLateral().getInicioButton().addActionListener(this);
 		vista.getVentanaPrincipal().getPanelInferior().getCrearButton().addActionListener(this);
 		vista.getVentanaPrincipal().getPanelInferior().getEditarButton().addActionListener(this);
 		vista.getVentanaEmpleado().getPanelSuperior().getTipoEmpleadoComboBox().addActionListener(this);
@@ -273,7 +271,105 @@ public class Controller implements ActionListener{
 			
 		}else if(comando.equals("CREAR_EMPLEADO")) {
 			reiniciarCamposEdicionCreacion();
+			vista.getVentanaEmpleado().getPanelSuperior().getCedulaField().setEditable(true);
 			vista.getVentanaEmpleado().setVisible(true);
+			
+            	
+		}else if(comando.equals("CREAR")){
+			
+			String cedula = vista.getVentanaEmpleado().getPanelSuperior().getCedulaField().getText();
+            String nombre = vista.getVentanaEmpleado().getPanelSuperior().getNombreField().getText();
+            String apellidos = vista.getVentanaEmpleado().getPanelSuperior().getApellidosField().getText();
+            String telefono = vista.getVentanaEmpleado().getPanelSuperior().getTelefonoField().getText();
+            String correo = vista.getVentanaEmpleado().getPanelSuperior().getCorreoField().getText();
+            String direccion = vista.getVentanaEmpleado().getPanelSuperior().getDireccionField().getText();
+            String anioIngresoString = vista.getVentanaEmpleado().getPanelSuperior().getAnioIngresoField().getText();
+            String genero = vista.getVentanaEmpleado().getPanelSuperior().getGeneroComboBox().getSelectedItem().toString();
+            LocalDate fechaNacimiento = ((Date) vista.getVentanaEmpleado().getPanelSuperior().getFechaNacimiento().getValue())
+                                        .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            if(!validarEntradasEmpleado(cedula, nombre, apellidos, telefono, correo ,fechaNacimiento, anioIngresoString)) {
+            	vista.mostrarMensajeError("Por favor validar que lso campos son válidos.");
+            	
+            }else {
+            	String tipoEmpleado = vista.getVentanaEmpleado().getPanelSuperior().getTipoEmpleadoComboBox().getSelectedItem().toString();
+            	int anioIngreso = Integer.parseInt(anioIngresoString);
+            	
+            	if(tipoEmpleado.equals("Ingeniero Junior")) {
+                	PanelIngenieroJunior panelJunior = (PanelIngenieroJunior) vista.getVentanaEmpleado().getPanelDinamico().getPanelActual();
+                	String nivel = panelJunior.getNivelComboBox().getSelectedItem().toString();
+                	
+                	int confirmacion = vista.mostrarMensajeConfirmacion("¿Está seguro de crear el empleado?");
+                	
+                	if(confirmacion == JOptionPane.YES_OPTION) {
+                		Empleado empleadoNuevo = empresa.crearEmpleado(tipoEmpleado, cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, fechaNacimiento, genero, nivel);
+                    	empresa.agregarEmpleado(empleadoNuevo);
+                    	reiniciarTabla();
+                    	vista.mostrarMensajeExito("Empleado editado con éxito");
+                    	vista.getVentanaEmpleado().setVisible(false);
+                	}else {
+                		vista.mostrarMensajeExito("Operación cancelada con éxito");
+                    	vista.getVentanaEmpleado().setVisible(false);
+                	}
+                	
+                	
+                }else if(tipoEmpleado.equals("Ingeniero Senior")) {
+                	PanelIngenieroSenior panelSenior = (PanelIngenieroSenior) vista.getVentanaEmpleado().getPanelDinamico().getPanelActual();
+                	int numeroVentas = Integer.parseInt(panelSenior.getNumeroVentasField().getText());
+                	
+                	int confirmacion = vista.mostrarMensajeConfirmacion("¿Está seguro de crear el empleado?");
+                	
+                	if(confirmacion == JOptionPane.YES_OPTION) {
+                		Empleado empleadoNuevo = empresa.crearEmpleado(tipoEmpleado, cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, fechaNacimiento, genero, numeroVentas);
+                    	empresa.agregarEmpleado(empleadoNuevo);
+                    	reiniciarTabla();
+                    	vista.mostrarMensajeExito("Empleado editado con éxito");
+                    	vista.getVentanaEmpleado().setVisible(false);
+                	}else {
+                		vista.mostrarMensajeExito("Operación cancelada con éxito");
+                    	vista.getVentanaEmpleado().setVisible(false);
+                	}
+                		
+                	
+                }else if(tipoEmpleado.equals("Empleado a Comisión")) {
+                	PanelEmpleadoComision  panelComision = (PanelEmpleadoComision) vista.getVentanaEmpleado().getPanelDinamico().getPanelActual();
+                	int clientesCaptados = Integer.parseInt(panelComision.getClientesCaptadosField().getText());
+                	
+                	int confirmacion = vista.mostrarMensajeConfirmacion("¿Está seguro de crear el empleado?");
+            
+                	if(confirmacion == JOptionPane.YES_OPTION) {
+                		Empleado empleadoNuevo = empresa.crearEmpleado(tipoEmpleado, cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, fechaNacimiento, genero, clientesCaptados);
+                    	empresa.agregarEmpleado(empleadoNuevo);
+                    	reiniciarTabla();
+                    	vista.mostrarMensajeExito("Empleado editado con éxito");
+                    	vista.getVentanaEmpleado().setVisible(false);
+                	}else {
+                		vista.mostrarMensajeExito("Operación cancelada con éxito");
+                    	vista.getVentanaEmpleado().setVisible(false);
+                	}
+                		
+                }else if(tipoEmpleado.equals("Técnico")) {
+                	
+                	int confirmacion = vista.mostrarMensajeConfirmacion("¿Está seguro de crear el empleado?");
+                	
+                	if(confirmacion == JOptionPane.YES_OPTION) {
+                		Empleado empleadoNuevo = empresa.crearEmpleado(tipoEmpleado, cedula, nombre, apellidos, telefono, correo, direccion, anioIngreso, fechaNacimiento, genero, null);
+                    	empresa.agregarEmpleado(empleadoNuevo);
+                    	reiniciarTabla();
+                    	vista.mostrarMensajeExito("Empleado editado con éxito");
+                    	vista.getVentanaEmpleado().setVisible(false);
+                	}else {
+                		vista.mostrarMensajeExito("Operación cancelada con éxito");
+                    	vista.getVentanaEmpleado().setVisible(false);
+                	}  	
+                	
+                }
+            	
+            }
+			
+		}else if(comando.equals("CANCELAR")){
+			
+			vista.getVentanaEmpleado().setVisible(false);
 			
 		}else if(comando.equals("EDITAR_EMPLEADO")) {
 			int filaSeleccionada = vista.getVentanaPrincipal().getPanelTabla().getTablaEmpleados().getSelectedRow();
@@ -500,10 +596,6 @@ public class Controller implements ActionListener{
                 
             }
             
-		}else if(comando.equals("CREAR")) {
-			
-		}else if(comando.equals("CANCELAR")) {
-			
 		}
 	}
 }
